@@ -28,6 +28,7 @@ class BayesClassifier:
         self.prob_classes = None
 
     def fit(self, X, y):
+        """Fit classifier given training data and labels."""
         # Assuming classes are numbered 0 ... K-1
         self.num_classes = len(set(y))
         self.prob_classes = np.zeros(self.num_classes)
@@ -46,10 +47,12 @@ class BayesClassifier:
         self.prob_classes /= self.prob_classes.sum()
 
     def sample_given_y(self, y):
+        """Generate a sample given label."""
         gaussian = self.gaussians[y]
         return clamp_sample(x=mvn.rvs(mean=gaussian["mean"], cov=gaussian["cov"]))
 
     def sample(self):
+        """Generate a sample randomly based on prior probabilities of labels."""
         y = np.random.choice(self.num_classes, p=self.prob_classes)
         return clamp_sample(x=self.sample_given_y(y))
 
