@@ -79,7 +79,7 @@ def train(data, num_epochs=30, batch_size=128):
 
 def main():
     """Main driver method."""
-    # Fit classifier to MNIST data
+    # Load MNIST data
     data, _ = io_utils.load_mnist(data_dir=Path(BASE_DIR, "data", "digit-recognizer"),
                                   mode="train")
 
